@@ -30,8 +30,6 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({
                         "radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent)",
                 }}
             />
-
-            {/* One deliberate glow behind the header, not a symmetric pair in opposite corners */}
             <div
                 className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] sm:w-[700px] sm:h-[400px] rounded-full bg-blue-600/[0.08] blur-[100px] sm:blur-[140px] pointer-events-none"
                 aria-hidden="true"
@@ -51,8 +49,6 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({
                         </div>
                     ))}
                 </div>
-
-                {/* Closing line: a hairline rule and an inline sentence, not a boxed pill CTA */}
                 <div className="mt-12 sm:mt-16 lg:mt-20 pt-8 sm:pt-10 border-t border-slate-800/80 text-center px-4 sm:px-0">
                     <p className="text-slate-400 text-sm sm:text-[15px]">
                         Need something not listed above?{" "}
