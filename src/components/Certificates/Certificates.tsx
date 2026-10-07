@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
+import Image from 'next/image'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import {
   BadgeCheck,
@@ -302,7 +303,7 @@ export default function Certificates(){
         <div className="relative aspect-[4/3] w-full">
           <div className="absolute inset-0 overflow-hidden rounded-t-2xl">
             {hasImage ? (
-              <img
+              <Image
                 src={cert.imageUrl}
                 alt={cert.title}
                 loading="lazy"
@@ -595,7 +596,7 @@ export default function Certificates(){
 
               <div className="relative aspect-video w-full overflow-hidden bg-slate-100 dark:bg-white/5">
                 {viewing.imageUrl && !brokenImages[viewing.id] ? (
-                  <img
+                  <Image
                     src={viewing.imageUrl}
                     alt={viewing.title}
                     onError={() => handleImageError(viewing.id)}
