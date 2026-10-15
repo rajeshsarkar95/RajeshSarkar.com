@@ -1,12 +1,9 @@
-// import React from 'react'
-// import ImageGallery from '@/components/sections/Imagegallery'
+import React from 'react'
 
-// function page() {
-//   return (
-//     <div>
-//       <ImageGallery/>
-//     </div>
-//   )
-// }
+function index() {
+  return (
+    <div>index</div>
+  )
+}
 
-// export default page
+export default index
