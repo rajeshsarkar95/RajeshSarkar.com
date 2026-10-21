@@ -163,7 +163,7 @@ export default function HeroSection() {
               </button>
 
               <a
-                href="/cv/RajeshSarkar.pdf"
+                href="/cv/Rajesh_Sarkar_CV(1).pdf"
                 download
                 className="c-btn-secondary group inline-flex items-center gap-2 transition-all duration-300 hover:border-[var(--accent)] hover:text-[var(--accent)]"
               >

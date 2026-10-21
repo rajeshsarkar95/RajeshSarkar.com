@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 
 export function useTheme() {
-  const [isDark, setIsDark] = useState(true)
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const stored = localStorage.getItem('theme')
@@ -9,7 +9,7 @@ export function useTheme() {
     const dark = stored ? stored === 'dark' : prefersDark
     setIsDark(dark)
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
-  }, [])
+  },[])
 
   const toggleTheme = useCallback(() => {
     setIsDark((prev) => {
