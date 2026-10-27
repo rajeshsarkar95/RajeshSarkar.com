@@ -1,9 +1,9 @@
 export const educations = [
   {
     id: '1',
-    institution: 'Uttarakhand University',
+    institution: 'Uttarakhand open University',
     degree: 'Bachelor of Computer Applications (BCA)',
-    status: 'Currently pursuing',
+    status: '',
     current: true,
     description:
       'Building a strong foundation in computer science and full-stack engineering, with a focus on scalable, high-performance web applications. I care about clean architecture, optimized backend systems, responsive interfaces, and code that stays maintainable as projects grow.',
