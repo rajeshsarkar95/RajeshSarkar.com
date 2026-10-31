@@ -67,8 +67,6 @@ const LINKS: ContactLink[] = [
   },
 ]
 
-/* ---------------------------- Validation ---------------------------- */
-
 function validate(data: ContactForm): Partial<ContactForm> {
   const errors: Partial<ContactForm> = {}
   if (data.name.trim().length < 2) errors.name = 'Please enter your name (min 2 characters).'
@@ -78,8 +76,6 @@ function validate(data: ContactForm): Partial<ContactForm> {
   return errors
 }
 
-/* ----------------------------- Component ---------------------------- */
-
 export default function ContactSection() {
   const [form, setForm] = useState<ContactForm>(EMPTY_FORM)
   const [errors, setErrors] = useState<Partial<ContactForm>>({})
@@ -87,7 +83,7 @@ export default function ContactSection() {
   const [success, setSuccess] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const [copied, setCopied] = useState(false)
-  const [honeypot, setHoneypot] = useState('') // bots fill this, humans never see it
+  const [honeypot, setHoneypot] = useState('') 
 
   const successTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const copyTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
@@ -106,11 +102,9 @@ export default function ContactSection() {
     if (errors[name as keyof ContactForm]) setErrors((er) => ({ ...er, [name]: undefined }))
     if (submitError) setSubmitError('')
   }
-
-  // validate a single field when the user leaves it
   const handleBlur = (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const name = e.target.name as keyof ContactForm
-    if (!form[name].trim()) return // don't nag on untouched, empty fields
+    if (!form[name].trim()) return 
     const fieldError = validate(form)[name]
     setErrors((er) => ({ ...er, [name]: fieldError }))
   }
@@ -126,7 +120,6 @@ export default function ContactSection() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (submitting) return
-
     const errs = validate(form)
     if (Object.keys(errs).length) {
       setErrors(errs)
@@ -134,8 +127,6 @@ export default function ContactSection() {
       if (first) document.getElementById(first)?.focus()
       return
     }
-
-    // honeypot filled → pretend success, send nothing
     if (honeypot) {
       showSuccess()
       return
@@ -182,7 +173,6 @@ export default function ContactSection() {
       clearTimeout(copyTimer.current)
       copyTimer.current = setTimeout(() => setCopied(false), 2000)
     } catch {
-      /* clipboard blocked — the mailto link still works */
     }
   }
 
@@ -192,7 +182,6 @@ export default function ContactSection() {
 
   return (
     <section id="contact" aria-labelledby="contact-heading" className="c-section relative overflow-hidden">
-      {/* ambient glow */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-[var(--accent)]/10 blur-[140px]"
@@ -206,9 +195,7 @@ export default function ContactSection() {
           </h2>
           <p className="c-section-desc">Have a project in mind? I&apos;d love to hear about it.</p>
         </div>
-
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-5 lg:gap-14">
-          {/* ------------------------ Left: info ------------------------ */}
           <div className="reveal lg:col-span-2">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border2)] bg-[var(--surface)]/50 px-4 py-2 text-sm text-[var(--text2)] backdrop-blur-md">
               <span className="relative flex h-2 w-2" aria-hidden="true">
@@ -283,8 +270,6 @@ export default function ContactSection() {
               })}
             </ul>
           </div>
-
-          {/* ------------------------ Right: form ----------------------- */}
           <div className="reveal reveal-d2 lg:col-span-3">
             <div className="relative rounded-3xl border border-[var(--border2)] bg-[var(--surface)]/60 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
               <div
@@ -403,8 +388,6 @@ export default function ContactSection() {
                     </span>
                   )}
                 </div>
-
-                {/* Honeypot: hidden from people and screen readers, bots tend to fill it */}
                 <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
                   <label htmlFor="website">Website</label>
                   <input
@@ -453,8 +436,6 @@ export default function ContactSection() {
                 <p className="text-center text-[12px] text-[var(--text3)]">
                   Your details are only used to reply to this message.
                 </p>
-
-                {/* live regions stay mounted so screen readers announce changes reliably */}
                 <div role="status" aria-live="polite">
                   {success && (
                     <div
