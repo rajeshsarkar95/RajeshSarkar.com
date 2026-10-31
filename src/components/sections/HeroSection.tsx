@@ -1,4 +1,22 @@
 import React, { useEffect, useState, type CSSProperties } from "react";
+import type { IconType } from "react-icons";
+import { FaAws } from "react-icons/fa";
+import {
+  SiReact,
+  SiNextdotjs,
+  SiJavascript,
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiTypescript,
+  SiRedux,
+  SiGit,
+  SiGithub,
+  SiVercel,
+  SiMysql,
+  SiSocketdotio,
+} from "react-icons/si";
+import { RiOpenaiFill } from "react-icons/ri"
 
 interface Stat {
   number: string;
@@ -7,8 +25,9 @@ interface Stat {
 
 interface OrbitBadge {
   label: string;
+  icon: IconType;
   color: string;
-  angle: number; 
+  angle: number;
 }
 
 interface OrbitRing {
@@ -24,21 +43,20 @@ const STATS: Stat[] = [
   { number: "15+", label: "Technologies" },
 ];
 
-
 const ORBIT_RINGS: OrbitRing[] = [
   {
     size: 100,
     duration: 90,
     badges: [
-      { label: "React", color: "#61dafb", angle: -90 },
-      { label: "Next.js", color: "#a1a1aa", angle: -50 },
-      { label: "JavaScript", color: "#f7df1e", angle: -10 },
-      { label: "Node.js", color: "#339933", angle: 30 },
-      { label: "Express", color: "#a1a1aa", angle: 70 },
-      { label: "MongoDB", color: "#47a248", angle: 110 },
-      { label: "TypeScript", color: "#3178c6", angle: 150 },
-      { label: "Redux", color: "#764abc", angle: 190 },
-      { label: "AWS", color: "#ff9900", angle: 230 },
+      { label: "React", icon: SiReact, color: "#61dafb", angle: -90 },
+      { label: "Next.js", icon: SiNextdotjs, color: "#a1a1aa", angle: -50 },
+      { label: "JavaScript", icon: SiJavascript, color: "#f7df1e", angle: -10 },
+      { label: "Node.js", icon: SiNodedotjs, color: "#339933", angle: 30 },
+      { label: "Express", icon: SiExpress, color: "#a1a1aa", angle: 70 },
+      { label: "MongoDB", icon: SiMongodb, color: "#47a248", angle: 110 },
+      { label: "TypeScript", icon: SiTypescript, color: "#3178c6", angle: 150 },
+      { label: "Redux", icon: SiRedux, color: "#764abc", angle: 190 },
+      { label: "AWS", icon: FaAws, color: "#ff9900", angle: 230 },
     ],
   },
   {
@@ -46,28 +64,28 @@ const ORBIT_RINGS: OrbitRing[] = [
     duration: 60,
     reverse: false,
     badges: [
-      { label: "Git", color: "#f05032", angle:-60},
-      { label: "GitHub", color: "#a1a1aa", angle: 0 },
-      { label: "Vercel", color: "#a1a1aa", angle: 60 },
-      { label: "MySQL", color: "#00758f", angle: 120 },
-      { label: "Socket.IO", color: "#a1a1aa", angle: 180 },
-      { label: "OpenAI", color: "#10a37f", angle: 240 },
+      { label: "Git", icon: SiGit, color: "#f05032", angle: -60 },
+      { label: "GitHub", icon: SiGithub, color: "#a1a1aa", angle: 0 },
+      { label: "Vercel", icon: SiVercel, color: "#a1a1aa", angle: 60 },
+      { label: "MySQL", icon: SiMysql, color: "#00758f", angle: 120 },
+      { label: "Socket.IO", icon: SiSocketdotio, color: "#a1a1aa", angle: 180 },
+      { label: "OpenAI", icon: RiOpenaiFill, color: "#10a37f", angle: 240 },
     ],
   },
 ];
 
 const reveal = (delay: string) => ({ "--delay": delay }) as CSSProperties;
 const useCountUp = (target: string, durationMs = 1400) => {
-const [display, setDisplay] = useState("0");
+  const [display, setDisplay] = useState("0");
 
-  useEffect(() =>{
+  useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setDisplay(target);
       return;
     }
 
     const numeric = parseInt(target.replace(/\D/g, ""), 10) || 0;
-    const suffix = target.replace(/\d/g,"");
+    const suffix = target.replace(/\d/g, "");
     const start = performance.now();
     let raf = 0;
 
@@ -84,7 +102,6 @@ const [display, setDisplay] = useState("0");
 
   return display;
 };
-
 const CodeWindow = () => (
   <div
     className="cw-root relative w-full max-w-[420px] aspect-square"
@@ -104,85 +121,105 @@ const CodeWindow = () => (
     `}</style>
     <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
       {ORBIT_RINGS.map((ring, ri) => (
-        <div
-          key={ri}
-          className="cw-ring-in absolute left-3 top-3 -translate-x-1/2 -translate-y-1/2"
-          style={{
-            width: `${ring.size}%`,
-            height: `${ring.size}%`,
-            animation: `cw-ring-in .9s cubic-bezier(.16,1,.3,1) both ${ri * 0.15}s`,
-          }}
-        >
-          <div className="absolute inset-0 rounded-full border border-dashed border-[var(--border2)]" />
-
+        <div key={ri} className="absolute inset-0 flex items-center justify-center">
           <div
-            className="cw-ring absolute inset-0"
-            style={{ animation: `${ring.reverse ? "cw-spin-rev" : "cw-spin"} ${ring.duration}s linear infinite` }}
+            className="cw-ring-in relative"
+            style={{
+              width: `${ring.size}%`,
+              height: `${ring.size}%`,
+              animation: `cw-ring-in .9s cubic-bezier(.16,1,.3,1) both ${ri * 0.15}s`,
+            }}
           >
-            {ring.badges.map((b, bi) => {
-              const rad = (b.angle * Math.PI) / 180;
-              return (
-                <div
-                  key={b.label}
-                  className="absolute -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: `${50 + 50 * Math.cos(rad)}%`, top: `${50 + 50 * Math.sin(rad)}%` }}
-                >
+            <div className="absolute inset-0 rounded-full border border-dashed border-[var(--border2)]" />
+
+            <div
+              className="cw-ring absolute inset-0"
+              style={{ animation: `${ring.reverse ? "cw-spin-rev" : "cw-spin"} ${ring.duration}s linear infinite` }}
+            >
+              {ring.badges.map((b, bi) => {
+                const rad = (b.angle * Math.PI) / 180;
+                return (
                   <div
-                    className="cw-counter"
-                    style={{ animation: `${ring.reverse ? "cw-spin" : "cw-spin-rev"} ${ring.duration}s linear infinite` }}
+                    key={b.label}
+                    className="absolute -translate-x-1/2 -translate-y-1/2"
+                    style={{ left: `${50 + 50 * Math.cos(rad)}%`, top: `${50 + 50 * Math.sin(rad)}%` }}
                   >
                     <div
-                      className="cw-pop"
-                      style={{ animation: `cw-pop .6s cubic-bezier(.16,1,.3,1) both ${0.6 + ri * 0.2 + bi * 0.08}s` }}
+                      className="cw-counter"
+                      style={{ animation: `${ring.reverse ? "cw-spin" : "cw-spin-rev"} ${ring.duration}s linear infinite` }}
                     >
                       <div
-                        className="cw-bob"
-                        style={{ animation: `cw-bob ${4 + (bi % 3)}s ease-in-out infinite ${-bi}s` }}
+                        className="cw-pop"
+                        style={{ animation: `cw-pop .6s cubic-bezier(.16,1,.3,1) both ${0.6 + ri * 0.2 + bi * 0.08}s` }}
                       >
-                        <span
-                          className="flex items-center whitespace-nowrap rounded-[0.9em] border border-[var(--border2)] bg-[var(--bg2)]/80 font-mono text-[var(--text2)] backdrop-blur-xl shadow-2xl"
-                          style={{ fontSize: "2.6cqw", padding: "0.45em 0.8em", gap: "0.6em" }}
+                        <div
+                          className="cw-bob"
+                          style={{ animation: `cw-bob ${4 + (bi % 3)}s ease-in-out infinite ${-bi}s` }}
                         >
                           <span
-                            className="rounded-full"
-                            style={{ width: "0.7em", height: "0.7em", background: b.color }}
-                          />
-                          {b.label}
-                        </span>
+                            className="flex items-center whitespace-nowrap rounded-[0.9em] border border-[var(--border2)] bg-[var(--bg2)]/80 font-mono text-[var(--text2)] backdrop-blur-xl shadow-2xl"
+                            style={{ fontSize: "2.6cqw", padding: "0.45em 0.8em", gap: "0.6em" }}
+                          >
+                            <b.icon
+                              aria-hidden="true"
+                              className="shrink-0"
+                              style={{ width: "1.25em", height: "1.25em", color: b.color }}
+                            />
+                            {b.label}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       ))}
     </div>
-
-    <div className="absolute left-1/2 top-1/2 z-10 w-[50%] h-[50%] -translate-x-1/2 -translate-y-1/2 rounded-[20px] bg-[var(--surface)] border border-[var(--border2)] backdrop-blur-xl overflow-hidden flex items-center justify-center shadow-2xl">
-      <div className="absolute inset-[-1px] rounded-[20px] -z-10 bg-gradient-to-br from-[var(--accent)]/20 via-transparent to-[var(--accent2)]/10 animate-gradient-shift bg-[length:200%_200%] motion-reduce:animate-none" />
+    <div
+      role="img"
+      aria-label="Code editor showing Rajesh Sarkar's developer profile"
+      className="absolute left-1/2 top-1/2 z-10 flex h-[50%] w-[50%] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-[18px] border border-[var(--border2)] bg-[var(--surface)] shadow-2xl backdrop-blur-xl"
+      style={{ fontSize: "2.4cqw" }}
+    >
+      <div className="absolute inset-[-1px] -z-10 rounded-[18px] bg-gradient-to-br from-[var(--accent)]/20 via-transparent to-[var(--accent2)]/10 animate-gradient-shift bg-[length:200%_200%] motion-reduce:animate-none" />
       <div
-        className="w-full font-mono leading-[1.85] select-none"
-        style={{ fontSize: "2.3cqw", padding: "3.4cqw" }}
+        className="relative flex shrink-0 items-center border-b border-[var(--border2)] bg-white/[0.03]"
+        style={{ padding: "0.7em 1em" }}
       >
-        <div className="text-[var(--text3)] italic mb-[0.8em]">{"// Rajesh Sarkar"}</div>
-        <div className="text-[var(--text3)]">
-          <span className="text-[#a78bfa]">const</span> <span className="text-[#38bdf8]">developer</span> = {"{"}
+        <div className="flex" style={{ gap: "0.55em" }} aria-hidden="true">
+          <span className="rounded-full bg-[#ff5f57]/80" style={{ width: "0.8em", height: "0.8em" }} />
+          <span className="rounded-full bg-[#febc2e]/80" style={{ width: "0.8em", height: "0.8em" }} />
+          <span className="rounded-full bg-[#28c840]/80" style={{ width: "0.8em", height: "0.8em" }} />
         </div>
-        <div style={{ paddingLeft: "1.6em" }}>
-          <div className="text-[var(--text3)]">name: <span className="text-[#34d399]">Rajesh Sarkar</span>,</div>
-          <div className="text-[var(--text3)]">role: <span className="text-[#34d399]">Full Stack Dev</span>,</div>
-          <div className="text-[var(--text3)]">exp: <span className="text-[var(--orange)]">2</span><span className="text-[#4a4a65] italic">{"// years"}</span></div>
-          <div className="text-[var(--text3)]">stack: [<span className="text-[#34d399]">&quot;React&quot;, &quot;Next.js&quot;, &quot;Node.js&quot;</span>],</div>
-          <div className="text-[var(--text3)]">available: <span className="text-[#a78bfa]">true</span></div>
+        <span className="absolute left-1/2 -translate-x-1/2 font-mono tracking-wide text-[var(--text3)]">
+          developer.ts
+        </span>
+      </div>
+
+  
+      <div
+        className="flex-1 select-none overflow-hidden font-mono text-[var(--text3)]"
+        style={{ padding: "1em 1.2em", lineHeight: 1.7 }}
+      >
+        <div>
+          <span className="text-[#a78bfa]">const</span> <span className="text-[#38bdf8]">dev</span> = {"{"}
         </div>
-        <div className="text-[var(--text3)]">{"};"}</div>
-        <div className="text-[var(--text3)] mt-[1.4em]">
-          <span className="text-[#38bdf8]">console</span>.<span className="text-[#38bdf8]">log</span>(<span className="text-[#34d399]">&quot;Let&apos;s build!&quot;</span>);
+        <div style={{ paddingLeft: "1.4em" }}>
+          <div>name: <span className="text-[#34d399]">&quot;Rajesh Sarkar&quot;</span>,</div>
+          <div>role: <span className="text-[#34d399]">&quot;Full Stack&quot;</span>,</div>
+          <div>exp: <span className="text-[var(--orange)]">2</span>, <span className="italic text-[#4a4a65]">{"// years"}</span></div>
+          <div>stack: [<span className="text-[#38bdf8]">React</span>, <span className="text-[#38bdf8]">Next</span>, <span className="text-[#38bdf8]">Node</span>],</div>
+          <div>available: <span className="text-[#a78bfa]">true</span>,</div>
+        </div>
+        <div>{"};"}</div>
+        <div style={{ marginTop: "0.9em" }}>
+          <span className="text-[#38bdf8]">console</span>.<span className="text-[#38bdf8]">log</span>(<span className="text-[#34d399]">&quot;Let&apos;s build!&quot;</span>)
           <span
-            className="inline-block bg-[var(--accent)] ml-1 align-middle animate-cursor-blink motion-reduce:animate-none"
-            style={{width:"0.6em",height:"1.2em"}}
+            className="ml-1 inline-block align-middle bg-[var(--accent)] animate-cursor-blink motion-reduce:animate-none"
+            style={{ width: "0.55em", height: "1.1em" }}
           />
         </div>
       </div>
@@ -203,6 +240,8 @@ const StatItem = ({ item }: { item: Stat }) => {
     </div>
   );
 };
+
+/* -------------------------------- Section ------------------------------- */
 
 export default function HeroSection() {
   const scrollTo = (id: string) => {
