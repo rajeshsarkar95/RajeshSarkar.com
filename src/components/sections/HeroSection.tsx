@@ -24,42 +24,50 @@ const STATS: Stat[] = [
   { number: "15+", label: "Technologies" },
 ];
 
+
 const ORBIT_RINGS: OrbitRing[] = [
   {
     size: 100,
-    duration: 70,
+    duration: 90,
     badges: [
       { label: "React", color: "#61dafb", angle: -90 },
-      { label: "Node.js", color: "#339933", angle: -30 },
-      { label: "MongoDB", color: "#47a248", angle: 30 },
-      { label: "Docker", color: "#2496ed", angle: 90 },
-      { label: "AWS", color: "#ff9900", angle: 150 },
-      { label: "Git", color: "#f05032", angle: 210 },
+      { label: "Next.js", color: "#a1a1aa", angle: -50 },
+      { label: "JavaScript", color: "#f7df1e", angle: -10 },
+      { label: "Node.js", color: "#339933", angle: 30 },
+      { label: "Express", color: "#a1a1aa", angle: 70 },
+      { label: "MongoDB", color: "#47a248", angle: 110 },
+      { label: "TypeScript", color: "#3178c6", angle: 150 },
+      { label: "Redux", color: "#764abc", angle: 190 },
+      { label: "AWS", color: "#ff9900", angle: 230 },
     ],
   },
   {
-    size: 62,
-    duration: 50,
-    reverse: true,
+    size: 74,
+    duration: 60,
+    reverse: false,
     badges: [
-      { label: "Next.js", color: "#a1a1aa", angle: -60 },
-      { label: "Express", color: "#a1a1aa", angle: 120 },
+      { label: "Git", color: "#f05032", angle:-60},
+      { label: "GitHub", color: "#a1a1aa", angle: 0 },
+      { label: "Vercel", color: "#a1a1aa", angle: 60 },
+      { label: "MySQL", color: "#00758f", angle: 120 },
+      { label: "Socket.IO", color: "#a1a1aa", angle: 180 },
+      { label: "OpenAI", color: "#10a37f", angle: 240 },
     ],
   },
 ];
 
 const reveal = (delay: string) => ({ "--delay": delay }) as CSSProperties;
 const useCountUp = (target: string, durationMs = 1400) => {
-  const [display, setDisplay] = useState("0");
+const [display, setDisplay] = useState("0");
 
-  useEffect(() => {
+  useEffect(() =>{
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setDisplay(target);
       return;
     }
 
     const numeric = parseInt(target.replace(/\D/g, ""), 10) || 0;
-    const suffix = target.replace(/\d/g, "");
+    const suffix = target.replace(/\d/g,"");
     const start = performance.now();
     let raf = 0;
 
@@ -76,6 +84,7 @@ const useCountUp = (target: string, durationMs = 1400) => {
 
   return display;
 };
+
 const CodeWindow = () => (
   <div
     className="cw-root relative w-full max-w-[420px] aspect-square"
